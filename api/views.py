@@ -7,13 +7,25 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from posts.models import Follow, Post, User
 from .permissions import IsAuthorOrReadOnly
-from .serializers import FollowSerializer, PostSerializer, UserSerializer
+from .serializers import FollowSerializer, PostSerializer, UserSerializer, PostListSerializer
 
 
 class UserViewSet(ReadOnlyModelViewSet):
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = User.objects.all()
+
+
+class PostsListViewSet(ReadOnlyModelViewSet):
+    serializer_class = PostListSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_backends = (DjangoFilterBackend, filters.OrderingFilter)
+    ordering_fields = ('pub_date',)
+    pagination_class = LimitOffsetPagination
+
+    def get_queryset(self):
+        followed_people = Follow.objects.filter(user=self.request.user).values('following')
+        return Post.objects.filter(author__in=followed_people)
 
 
 class PostViewSet(ModelViewSet):

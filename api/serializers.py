@@ -50,3 +50,9 @@ class FollowSerializer(serializers.ModelSerializer):
                 fields=('user', 'following')
             ),
         ]
+
+
+class PostListSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = Post
