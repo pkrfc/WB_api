@@ -1,6 +1,6 @@
 # WB blog
 
-###Application functionality:
+Application functionality:
 ```
 1. Register new users.
 2. Authorized users to create posts.
