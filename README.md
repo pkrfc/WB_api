@@ -1,6 +1,6 @@
 # WB blog
 
-###Application functionality:
+Application functionality:
 ```
 1. Register new users.
 2. Authorized users to create posts.
@@ -9,6 +9,7 @@
 5. Subscribing and unsubscribing to other users.
 6. Create a post feed.
 7. Mark posts in feed as read.
+8. Create users, posts, subscriptions through the admin panel.
 ```
 
 
