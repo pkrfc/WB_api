@@ -9,6 +9,7 @@ Application functionality:
 5. Subscribing and unsubscribing to other users.
 6. Create a post feed.
 7. Mark posts in feed as read.
+8. Create users, posts, subscriptions through the admin panel.
 ```
 
 
