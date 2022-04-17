@@ -1,13 +1,16 @@
-from rest_framework import filters
-
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet, GenericViewSet
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.mixins import UpdateModelMixin, ListModelMixin
+from rest_framework import filters
+from rest_framework.mixins import ListModelMixin, UpdateModelMixin
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.viewsets import (GenericViewSet, ModelViewSet,
+                                     ReadOnlyModelViewSet)
 
 from posts.models import Follow, Post, User
+
 from .permissions import IsAuthorOrReadOnly, IsOnlyAdmin
-from .serializers import FollowSerializer, PostSerializer, UserSerializer, PostListSerializer, PostViewsSerializer, UserAdminSerializer
+from .serializers import (FollowSerializer, PostListSerializer, PostSerializer,
+                          PostViewsSerializer, UserAdminSerializer,
+                          UserSerializer)
 
 
 class UserViewSet(ModelViewSet):
@@ -35,7 +38,9 @@ class PostsListViewSet(ReadOnlyModelViewSet):
     ordering_fields = ('pub_date',)
 
     def get_queryset(self):
-        followed_people = Follow.objects.filter(user=self.request.user).values('following')
+        followed_people = Follow.objects.filter(
+            user=self.request.user).values('following'
+                                           )
         return Post.objects.filter(author__in=followed_people)
 
 
